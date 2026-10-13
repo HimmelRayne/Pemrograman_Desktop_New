@@ -1,0 +1,11 @@
+Data disimpan oleh: ridwan
+Waktu penyimpanan: 2026-09-29 13:54:13
+--------------------------------------------------
+BIODATA TERSIMPAN:
+Diinput oleh: ridwan
+
+Nama: Muhammad Ridwan Kurniawan
+NIM: 24106050043
+Jurusan: Informatika
+Alamat: Pasek
+Jenis Kelamin: Pria

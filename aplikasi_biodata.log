@@ -1,0 +1,83 @@
+2026-10-01 13:03:56 - INFO - Login attempt for username: admin
+2026-10-01 13:03:56 - INFO - Successful login for user: admin
+2026-10-01 13:06:20 - INFO - Login attempt for username: ridwan
+2026-10-01 13:06:20 - WARNING - Failed login attempt for username: ridwan
+2026-10-01 13:06:26 - INFO - Login attempt for username: ridwan
+2026-10-01 13:06:26 - INFO - Successful login for user: ridwan
+2026-10-01 13:06:55 - INFO - Data submitted by user: ridwan - NIM: 222222222
+2026-10-01 13:09:40 - INFO - Aplikasi dimulai
+2026-10-01 13:09:47 - INFO - Aplikasi dimulai
+2026-10-01 13:09:54 - INFO - Login attempt for username: ridwan
+2026-10-01 13:09:54 - INFO - Successful login for user: ridwan
+2026-10-01 13:10:17 - INFO - Data submitted by user: ridwan - NIM: 24106050043
+2026-10-01 13:11:37 - INFO - Aplikasi dimulai
+2026-10-01 13:11:43 - INFO - Application closed by user: None
+2026-10-01 13:13:30 - INFO - Aplikasi dimulai
+2026-10-01 13:14:04 - INFO - Aplikasi dimulai
+2026-10-01 13:15:04 - INFO - Aplikasi dimulai
+2026-10-01 13:15:09 - INFO - Login attempt for username: ridwan
+2026-10-01 13:15:09 - INFO - Successful login for user: ridwan
+2026-10-01 13:15:19 - INFO - User logout: ridwan
+2026-10-01 13:16:07 - INFO - Aplikasi dimulai
+2026-10-01 13:16:13 - INFO - Login attempt for username: ridwan
+2026-10-01 13:16:13 - INFO - Successful login for user: ridwan
+2026-10-01 13:16:34 - INFO - Data submitted by user: ridwan - NIM: 24106050043
+2026-10-01 13:17:00 - INFO - Application closed by user: ridwan
+2026-10-01 13:20:00 - INFO - Aplikasi dimulai
+2026-10-01 13:20:10 - INFO - Login attempt for username: ridwan
+2026-10-01 13:20:10 - INFO - Successful login for user: ridwan
+2026-10-01 13:20:21 - INFO - User logout: ridwan
+2026-10-01 13:20:29 - INFO - Login attempt for username: ridwan
+2026-10-01 13:20:29 - WARNING - Empty credentials attempt for username: ridwan
+2026-10-01 13:21:41 - INFO - Aplikasi dimulai
+2026-10-01 13:21:48 - INFO - Login attempt for username: ridwan
+2026-10-01 13:21:48 - INFO - Successful login for user: ridwan
+2026-10-01 13:21:53 - INFO - Application closed by user: ridwan
+2026-10-01 13:23:59 - INFO - Aplikasi dimulai
+2026-10-01 13:24:04 - INFO - Login attempt for username: ridwan
+2026-10-01 13:24:04 - INFO - Successful login for user: ridwan
+2026-10-01 13:24:09 - INFO - User logout: ridwan
+2026-10-01 13:24:12 - INFO - Login attempt for username: ridwan
+2026-10-01 13:24:12 - WARNING - Empty credentials attempt for username: ridwan
+2026-10-01 13:24:26 - INFO - Login attempt for username: ridwan
+2026-10-01 13:24:26 - INFO - Last user saved: ridwan
+2026-10-01 13:24:26 - INFO - Successful login for user: ridwan
+2026-10-01 13:24:31 - INFO - User logout: ridwan
+2026-10-01 13:26:35 - INFO - Aplikasi dimulai
+2026-10-01 13:28:11 - INFO - Login attempt for username: ridwan
+2026-10-01 13:28:11 - WARNING - Failed login attempt for username: ridwan
+2026-10-01 13:28:17 - INFO - Login attempt for username: ridwan
+2026-10-01 13:28:17 - INFO - Last user saved: ridwan
+2026-10-01 13:28:17 - INFO - Successful login for user: ridwan
+2026-10-01 13:30:58 - INFO - Aplikasi dimulai
+2026-10-01 13:31:09 - INFO - Login attempt for username: ridwan
+2026-10-01 13:31:09 - INFO - Last user saved: ridwan
+2026-10-01 13:31:09 - INFO - Successful login for user: ridwan
+2026-10-01 13:37:43 - INFO - Aplikasi dimulai
+2026-10-01 13:37:52 - INFO - Login attempt for username: ridwan
+2026-10-01 13:37:52 - INFO - Last user saved: ridwan
+2026-10-01 13:37:52 - INFO - Successful login for user: ridwan
+2026-10-01 13:40:30 - INFO - Aplikasi dimulai
+2026-10-01 13:40:37 - INFO - Login attempt for username: ridwan
+2026-10-01 13:40:37 - INFO - Last user saved: ridwan
+2026-10-01 13:40:37 - INFO - Successful login for user: ridwan
+2026-10-01 13:40:54 - INFO - Data submitted by user: ridwan - NIM: 22222222222
+2026-10-01 13:47:20 - INFO - Aplikasi dimulai
+2026-10-01 13:47:27 - INFO - Login attempt for username: ridwan
+2026-10-01 13:47:27 - INFO - Last user saved: ridwan
+2026-10-01 13:47:27 - INFO - Successful login for user: ridwan
+2026-10-02 18:19:12 - INFO - Aplikasi dimulai
+2026-10-02 18:19:18 - INFO - Login attempt for username: ridwan
+2026-10-02 18:19:18 - INFO - Last user saved: ridwan
+2026-10-02 18:19:18 - INFO - Successful login for user: ridwan
+2026-10-02 18:20:28 - INFO - Data submitted by user: ridwan - NIM: 24106050043
+2026-10-02 18:20:43 - INFO - User logout: ridwan
+2026-10-02 18:20:51 - INFO - Login attempt for username: admin
+2026-10-02 18:20:51 - INFO - Last user saved: admin
+2026-10-02 18:20:51 - INFO - Successful login for user: admin
+2026-10-02 18:20:56 - INFO - User logout: admin
+2026-10-02 18:24:29 - INFO - Aplikasi dimulai
+2026-10-02 18:24:41 - INFO - Login attempt for username: mahasiswa
+2026-10-02 18:24:41 - INFO - Last user saved: mahasiswa
+2026-10-02 18:24:41 - INFO - Successful login for user: mahasiswa
+2026-10-02 18:25:37 - INFO - Data submitted by user: mahasiswa - NIM: 24106050043

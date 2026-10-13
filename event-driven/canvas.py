@@ -1,34 +1,182 @@
+
 import tkinter as tkinter
+import random
 
 class AnimasiApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Animasi Bola Memantul")
+        self.root.title("Modifan pingpong")
+        self.root.resizable(False, False)
 
-        # Buat Canvas
-        self.canvas = tkinter.Canvas(root, width=400, height=200, bg="white")
+        self.lebar = 600
+        self.tinggi = 400
+
+        self.canvas = tkinter.Canvas(
+            root,
+            width=self.lebar,
+            height=self.tinggi,
+            bg="black"
+        )
         self.canvas.pack(padx=10, pady=10)
 
-        # Buat objek lingkaran (oval) pada koordinat awal
-        self.bola = self.canvas.create_oval(10, 80, 40, 110, fill="blue")
-        self.dx = 3  # Kecepatan gerak sumbu X
+        self.canvas.create_text(
+            300, 20,
+            text="PINGPONG",
+            fill="white",
+            font=("Arial", 16, "bold")
+        )
 
-        # Jalankan animasi
+        self.skor = 0
+        self.teks_skor = self.canvas.create_text(
+            300, 50,
+            text="Skor: 0",
+            fill="white",
+            font=("Arial", 14)
+        )
+
+        self.paddle = self.canvas.create_rectangle(
+            560, 160, 575, 240,
+            fill="white"
+        )
+
+        self.bola = self.canvas.create_oval(
+            100, 180, 120, 200,
+            fill="cyan",
+            outline="cyan"
+        )
+
+        self.dx = 4
+        self.dy = 3
+        self.kecepatan_paddle = 20
+        self.game_over = False
+
+        self.root.bind("<Up>", self.gerak_atas)
+        self.root.bind("<Down>", self.gerak_bawah)
+        self.root.bind("<w>", self.gerak_atas)
+        self.root.bind("<s>", self.gerak_bawah)
+        self.root.bind("<W>", self.gerak_atas)
+        self.root.bind("<S>", self.gerak_bawah)
+        self.root.bind("<r>", self.ulangi)
+        self.root.bind("<R>", self.ulangi)
+
         self.gerakkan_bola()
 
-    def gerakkan_bola(self):
-        # Geser objek sejauh dx
-        self.canvas.move(self.bola, self.dx, 0)
-        
-        # Ambil koordinat posisi bola saat ini
-        posisi = self.canvas.coords(self.bola)
-        
-        # BatMemantul jika menabrak dinding kanan atau kiri canvas (lebar 400)
-        if posisi[2] >= 400 or posisi[0] <= 0:
-            self.dx = -self.dx
+    def gerak_atas(self, event):
+        posisi = self.canvas.coords(self.paddle)
+        if posisi[1] > 0:
+            self.canvas.move(
+                self.paddle, 0, -self.kecepatan_paddle
+            )
 
-        # Perbarui frame setiap 20 milidetik (sekitar 50 FPS)
+    def gerak_bawah(self, event):
+        posisi = self.canvas.coords(self.paddle)
+        if posisi[3] < self.tinggi:
+            self.canvas.move(
+                self.paddle, 0, self.kecepatan_paddle
+            )
+
+    def gerakkan_bola(self):
+        if self.game_over:
+            return
+
+        self.canvas.move(self.bola, self.dx, self.dy)
+        posisi = self.canvas.coords(self.bola)
+
+        # Pantulan dinding atas dan bawah
+        if posisi[1] <= 0 or posisi[3] >= self.tinggi:
+            self.dy = -self.dy
+
+        # Pantulan dinding kiri
+        if posisi[0] <= 0:
+            self.dx = abs(self.dx)
+
+        # Deteksi tabrakan dengan paddle
+        paddle = self.canvas.coords(self.paddle)
+
+        if (
+            posisi[2] >= paddle[0]
+            and posisi[3] >= paddle[1]
+            and posisi[1] <= paddle[3]
+            and posisi[0] < paddle[2]
+            and self.dx > 0
+        ):
+            self.dx = -abs(self.dx)
+            self.skor += 1
+
+            self.canvas.itemconfig(
+                self.teks_skor,
+                text=f"Skor: {self.skor}"
+            )
+
+            # Kecepatan bola meningkat secara bertahap
+            if self.skor % 5 == 0:
+                self.dx *= 1.15
+                self.dy *= 1.1
+
+        # Game over jika bola melewati paddle
+        if posisi[2] >= self.lebar:
+            self.game_over = True
+            self.canvas.create_text(
+                300, 170,
+                text="GAME OVER",
+                fill="red",
+                font=("Arial", 28, "bold")
+            )
+            self.canvas.create_text(
+                300, 210,
+                text=f"Skor akhir: {self.skor}",
+                fill="white",
+                font=("Arial", 16)
+            )
+            self.canvas.create_text(
+                300, 245,
+                text="Tekan R untuk bermain lagi",
+                fill="yellow",
+                font=("Arial", 12)
+            )
+            return
+
         self.root.after(20, self.gerakkan_bola)
+
+    def ulangi(self, event):
+        if not self.game_over:
+            return
+
+        self.canvas.delete("all")
+
+        self.skor = 0
+        self.game_over = False
+
+        self.canvas.create_text(
+            300, 20,
+            text="PINGPONG",
+            fill="white",
+            font=("Arial", 16, "bold")
+        )
+
+        self.teks_skor = self.canvas.create_text(
+            300, 50,
+            text="Skor: 0",
+            fill="white",
+            font=("Arial", 14)
+        )
+
+        self.paddle = self.canvas.create_rectangle(
+            560, 160, 575, 240,
+            fill="white"
+        )
+
+        self.bola = self.canvas.create_oval(
+            100, 180, 120, 200,
+            fill="cyan",
+            outline="cyan"
+        )
+
+        self.dx = 4
+        self.dy = random.choice([-3, 3])
+
+        self.gerakkan_bola()
+
 
 if __name__ == "__main__":
     root = tkinter.Tk()

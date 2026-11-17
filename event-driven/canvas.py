@@ -1,7 +1,7 @@
+
 import tkinter as tk
 import random
 import time
-import math
 
 
 class PingpongMonster:
@@ -12,18 +12,27 @@ class PingpongMonster:
 
         self.width = 700
         self.height = 420
+
         self.running = False
         self.game_over = False
 
         self.duration = 60
         self.remaining = 60
         self.score = 0
+        self.normal_goals = 0
         self.lives = 3
+
         self.balls = []
         self.last_shot = 0
         self.last_time = time.monotonic()
+
+        self.paddle_normal_width = 100
+        self.paddle_boosted = False
+        self.paddle_boost_until = 0
+
         self.target_y = 210
         self.keys = set()
+
         self.frame_id = None
         self.timer_id = None
 
@@ -31,7 +40,8 @@ class PingpongMonster:
         panel.pack(fill="x")
 
         tk.Label(
-            panel, text="MODE:",
+            panel,
+            text="MODE:",
             font=("Arial", 10, "bold")
         ).pack(side="left", padx=(0, 5))
 
@@ -67,18 +77,61 @@ class PingpongMonster:
         self.canvas.pack(padx=10, pady=(0, 10))
 
         self.canvas.bind("<Motion>", self.mouse_move)
-        self.canvas.bind("<Enter>", lambda e: self.canvas.focus_set())
+        self.canvas.bind(
+            "<Enter>",
+            lambda event: self.canvas.focus_set()
+        )
 
-        self.root.bind("<KeyPress-Up>", lambda e: self.keys.add("up"))
-        self.root.bind("<KeyRelease-Up>", lambda e: self.keys.discard("up"))
-        self.root.bind("<KeyPress-Down>", lambda e: self.keys.add("down"))
-        self.root.bind("<KeyRelease-Down>", lambda e: self.keys.discard("down"))
-        self.root.bind("<KeyPress-w>", lambda e: self.keys.add("up"))
-        self.root.bind("<KeyRelease-w>", lambda e: self.keys.discard("up"))
-        self.root.bind("<KeyPress-s>", lambda e: self.keys.add("down"))
-        self.root.bind("<KeyRelease-s>", lambda e: self.keys.discard("down"))
+        self.root.bind(
+            "<KeyPress-Up>",
+            lambda event: self.keys.add("up")
+        )
+        self.root.bind(
+            "<KeyRelease-Up>",
+            lambda event: self.keys.discard("up")
+        )
+        self.root.bind(
+            "<KeyPress-Down>",
+            lambda event: self.keys.add("down")
+        )
+        self.root.bind(
+            "<KeyRelease-Down>",
+            lambda event: self.keys.discard("down")
+        )
 
-        self.draw_background()
+        self.root.bind(
+            "<KeyPress-w>",
+            lambda event: self.keys.add("up")
+        )
+        self.root.bind(
+            "<KeyRelease-w>",
+            lambda event: self.keys.discard("up")
+        )
+        self.root.bind(
+            "<KeyPress-s>",
+            lambda event: self.keys.add("down")
+        )
+        self.root.bind(
+            "<KeyRelease-s>",
+            lambda event: self.keys.discard("down")
+        )
+        self.root.bind(
+            "<KeyPress-W>",
+            lambda event: self.keys.add("up")
+        )
+        self.root.bind(
+            "<KeyRelease-W>",
+            lambda event: self.keys.discard("up")
+        )
+        self.root.bind(
+            "<KeyPress-S>",
+            lambda event: self.keys.add("down")
+        )
+        self.root.bind(
+            "<KeyRelease-S>",
+            lambda event: self.keys.discard("down")
+        )
+
         self.draw_start_screen()
 
     def draw_background(self):
@@ -120,7 +173,8 @@ class PingpongMonster:
             )
 
         self.canvas.create_text(
-            (x1 + x2) / 2, y1 - 10,
+            (x1 + x2) / 2,
+            y1 - 10,
             text=label,
             fill="#66f5d5",
             font=("Arial", 7, "bold")
@@ -131,32 +185,45 @@ class PingpongMonster:
 
         c.create_polygon(
             115, 170, 125, 142, 145, 169,
-            fill="#8052db", outline="#c6a8ff", width=2
+            fill="#8052db",
+            outline="#c6a8ff",
+            width=2
         )
+
         c.create_polygon(
             165, 169, 188, 142, 196, 175,
-            fill="#8052db", outline="#c6a8ff", width=2
+            fill="#8052db",
+            outline="#c6a8ff",
+            width=2
         )
 
         c.create_oval(
             105, 160, 200, 253,
-            fill="#8857df", outline="#d0b5ff", width=3
+            fill="#8857df",
+            outline="#d0b5ff",
+            width=3
         )
 
         c.create_oval(126, 178, 150, 205, fill="white")
         c.create_oval(158, 178, 182, 205, fill="white")
+
         c.create_oval(135, 186, 145, 198, fill="#172039")
         c.create_oval(166, 186, 176, 198, fill="#172039")
 
         c.create_arc(
             132, 198, 176, 235,
-            start=200, extent=140,
-            style="arc", outline="#321a59", width=4
+            start=200,
+            extent=140,
+            style="arc",
+            outline="#321a59",
+            width=4
         )
 
         c.create_oval(
             138, 213, 171, 238,
-            fill="#43205e", outline="#d0b5ff", width=2
+            fill="#43205e",
+            outline="#d0b5ff",
+            width=2
         )
 
         c.create_polygon(
@@ -166,7 +233,9 @@ class PingpongMonster:
 
         c.create_oval(
             180, 211, 204, 235,
-            fill="#ff647c", outline="#ffd4dc", width=2
+            fill="#ff647c",
+            outline="#ffd4dc",
+            width=2
         )
 
         c.create_text(
@@ -190,27 +259,38 @@ class PingpongMonster:
         self.canvas.create_text(
             430, 185,
             text="Monster menembakkan bola setiap 5 detik",
-            fill="white", font=("Arial", 10)
+            fill="white",
+            font=("Arial", 10)
         )
 
         self.canvas.create_text(
             430, 215,
             text="Pantulkan bola ke salah satu keranjang",
-            fill="#b8c8e8", font=("Arial", 10)
+            fill="#b8c8e8",
+            font=("Arial", 10)
         )
 
         self.canvas.create_text(
             430, 245,
             text="Bola api memberikan 5 skor bonus!",
-            fill="#ff9955", font=("Arial", 11, "bold")
+            fill="#ff9955",
+            font=("Arial", 11, "bold")
         )
 
         self.canvas.create_text(
             430, 275,
             text="Gerakkan mouse atau gunakan W / S",
-            fill="#b8c8e8", font=("Arial", 9)
+            fill="#b8c8e8",
+            font=("Arial", 9)
         )
+    def activate_paddle_booster(self):
+        self.paddle_boosted = True
+        self.paddle_boost_until = time.monotonic() + 5
 
+        self.canvas.coords(
+            self.paddle_id,
+            *self.get_paddle_coords(width=self.paddle_normal_width * 2)
+        )
     def start_game(self):
         if self.running:
             return
@@ -219,8 +299,11 @@ class PingpongMonster:
 
         self.duration = self.time_choice.get()
         self.remaining = self.duration
+
         self.score = 0
+        self.normal_goals = 0
         self.lives = 3
+
         self.balls = []
         self.keys.clear()
         self.target_y = 210
@@ -249,9 +332,15 @@ class PingpongMonster:
             font=("Arial", 12, "bold")
         )
 
+        time_label = (
+            "Waktu: ∞"
+            if self.duration == 0
+            else f"Waktu: {self.duration // 60:02d}:00"
+        )
+
         self.time_text = self.canvas.create_text(
             410, 48,
-            text="Waktu: 01:00",
+            text=time_label,
             fill="#ffd166",
             font=("Arial", 12, "bold")
         )
@@ -265,12 +354,17 @@ class PingpongMonster:
 
         self.start_button.config(text="Sedang Bermain")
 
+        # Tembakan pertama langsung saat permainan dimulai.
+        self.shoot_ball()
+        self.last_shot = time.monotonic()
+
         self.timer_tick()
         self.game_loop()
 
     def mouse_move(self, event):
         self.target_y = max(
-            35, min(self.height - 35, event.y)
+            35,
+            min(self.height - 35, event.y)
         )
 
     def move_paddle(self):
@@ -284,11 +378,17 @@ class PingpongMonster:
             self.target_y += 7
 
         self.target_y = max(
-            35, min(self.height - 35, self.target_y)
+            35,
+            min(self.height - 35, self.target_y)
         )
 
         difference = self.target_y - center
-        self.canvas.move(self.paddle, 0, difference * 0.25)
+
+        self.canvas.move(
+            self.paddle,
+            0,
+            difference * 0.25
+        )
 
     def shoot_ball(self, bonus=False):
         x = 199
@@ -325,8 +425,7 @@ class PingpongMonster:
             "bonus": bonus
         })
 
-    def update_score(self, points):
-        old_score = self.score
+    def update_score(self, points, bonus=False):
         self.score += points
 
         self.canvas.itemconfig(
@@ -334,22 +433,23 @@ class PingpongMonster:
             text=f"Skor: {self.score}"
         )
 
-        # Setiap melewati kelipatan 3 skor,
-        # monster menembakkan satu bola bonus.
-        old_milestone = old_score // 3
-        new_milestone = self.score // 3
+        # Hanya bola biasa yang dihitung untuk bonus.
+        if not bonus:
+            self.normal_goals += 1
 
-        if new_milestone > old_milestone:
-            self.shoot_ball(bonus=True)
+            if self.normal_goals % 3 == 0:
+                self.shoot_ball(bonus=True)
 
     def update_ball(self, ball):
+        radius = 8
+
         ball["x"] += ball["dx"]
         ball["y"] += ball["dy"]
 
         x = ball["x"]
         y = ball["y"]
-        radius = 8
 
+        # Pantulan dinding atas dan bawah.
         if y <= radius:
             ball["y"] = radius
             ball["dy"] = abs(ball["dy"])
@@ -358,13 +458,12 @@ class PingpongMonster:
             ball["y"] = self.height - radius
             ball["dy"] = -abs(ball["dy"])
 
-        coords = self.canvas.coords(self.paddle)
-        px1, py1, px2, py2 = coords
+        # Deteksi tabrakan dengan paddle.
+        px1, py1, px2, py2 = self.canvas.coords(self.paddle)
 
         x = ball["x"]
         y = ball["y"]
 
-        # Bola menabrak paddle.
         if (
             not ball["returned"]
             and ball["dx"] > 0
@@ -384,10 +483,11 @@ class PingpongMonster:
 
             ball["dy"] += impact * 2.5
             ball["dy"] = max(
-                -5.5, min(5.5, ball["dy"])
+                -5.5,
+                min(5.5, ball["dy"])
             )
 
-        # Bola yang dipukul mencapai area keranjang kiri.
+        # Bola yang kembali ke sisi kiri.
         if ball["returned"] and ball["x"] <= 85:
             in_top_goal = (
                 35 + radius <= ball["y"] <= 100 - radius
@@ -398,17 +498,24 @@ class PingpongMonster:
             )
 
             if in_top_goal or in_bottom_goal:
-                self.update_score(5 if ball["bonus"] else 1)
+                if ball["bonus"]:
+                    self.update_score(5, bonus=True)
+                else:
+                    self.update_score(1, bonus=False)
+
                 self.remove_ball(ball)
                 return False
 
-            # Gagal masuk gol: bola memantul ke kanan.
+            # Gagal masuk keranjang: pantul kembali ke kanan.
             ball["x"] = 86
             ball["dx"] = abs(ball["dx"])
             ball["returned"] = False
 
-        # Bola yang lolos dari sisi kanan mengurangi nyawa.
-        if not ball["returned"] and ball["x"] >= self.width - radius:
+        # Bola yang melewati paddle mengurangi nyawa.
+        if (
+            not ball["returned"]
+            and ball["x"] >= self.width - radius
+        ):
             self.lives -= 1
 
             self.canvas.itemconfig(
@@ -432,7 +539,7 @@ class PingpongMonster:
             x + radius, y + radius
         )
 
-        # Animasi sederhana ekor api pada bola bonus.
+        # Animasi ekor api pada bola bonus.
         if ball["bonus"] and ball["flame"] is not None:
             flicker = random.randint(4, 10)
 
@@ -458,6 +565,7 @@ class PingpongMonster:
 
         now = time.monotonic()
 
+        # Tembakan otomatis setiap lima detik.
         if now - self.last_shot >= 5:
             self.shoot_ball()
             self.last_shot = now
@@ -477,13 +585,21 @@ class PingpongMonster:
 
         if self.running:
             self.frame_id = self.root.after(
-                16, self.game_loop
+                16,
+                self.game_loop
+            )
+        if self.paddle_boosted and time.monotonic() >= self.paddle_boost_until:
+            self.paddle_boosted = False
+            self.canvas.coords(
+                self.paddle_id,
+                *self.get_paddle_coords(width=self.paddle_normal_width)
             )
 
     def timer_tick(self):
         if not self.running:
             return
 
+        # Free Mode tidak memiliki batas waktu.
         if self.duration == 0:
             self.canvas.itemconfig(
                 self.time_text,
@@ -491,7 +607,8 @@ class PingpongMonster:
             )
 
             self.timer_id = self.root.after(
-                100, self.timer_tick
+                100,
+                self.timer_tick
             )
             return
 
@@ -518,7 +635,8 @@ class PingpongMonster:
             return
 
         self.timer_id = self.root.after(
-            100, self.timer_tick
+            100,
+            self.timer_tick
         )
 
     def stop_callbacks(self):

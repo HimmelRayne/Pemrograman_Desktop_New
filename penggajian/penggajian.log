@@ -1,0 +1,68 @@
+2026-11-10 14:17:51,159 ERROR Operasi database gagal
+Traceback (most recent call last):
+  File "d:\Tugas\Pemrograman Desktop\penggajian\ui_common.py", line 11, in aman
+    return aksi()
+           ^^^^^^
+  File "d:\Tugas\Pemrograman Desktop\penggajian\app.py", line 59, in proses
+    r = self.gaji_repo.ringkasan(periode)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Tugas\Pemrograman Desktop\penggajian\repository.py", line 76, in ringkasan
+    with koneksi() as db, db.cursor(dictionary=True) as cur:
+         ^^^^^^^^^
+  File "C:\Users\Windows\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "d:\Tugas\Pemrograman Desktop\penggajian\database.py", line 16, in koneksi
+    db = mysql.connector.connect(
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Windows\AppData\Local\Programs\Python\Python312\Lib\site-packages\mysql\connector\pooling.py", line 323, in connect
+    return MySQLConnection(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Windows\AppData\Local\Programs\Python\Python312\Lib\site-packages\mysql\connector\connection.py", line 185, in __init__
+    self.connect(**kwargs)
+  File "C:\Users\Windows\AppData\Local\Programs\Python\Python312\Lib\site-packages\mysql\connector\abstracts.py", line 1604, in connect
+    self._open_connection()
+  File "C:\Users\Windows\AppData\Local\Programs\Python\Python312\Lib\site-packages\mysql\connector\connection.py", line 411, in _open_connection
+    raise err
+  File "C:\Users\Windows\AppData\Local\Programs\Python\Python312\Lib\site-packages\mysql\connector\connection.py", line 388, in _open_connection
+    self._do_auth(
+  File "C:\Users\Windows\AppData\Local\Programs\Python\Python312\Lib\site-packages\mysql\connector\connection.py", line 320, in _do_auth
+    ok_pkt = self._authenticator.authenticate(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Windows\AppData\Local\Programs\Python\Python312\Lib\site-packages\mysql\connector\authentication.py", line 381, in authenticate
+    ok_pkt = self._handle_server_response(sock, pkt)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Windows\AppData\Local\Programs\Python\Python312\Lib\site-packages\mysql\connector\authentication.py", line 287, in _handle_server_response
+    raise get_exception(pkt)
+mysql.connector.errors.ProgrammingError: 1049 (42000): Unknown database 'db_penggajian_modul5'
+2026-11-10 14:23:30,322 ERROR Operasi database gagal
+Traceback (most recent call last):
+  File "D:\Tugas\Pemrograman Desktop\penggajian\ui_common.py", line 11, in aman
+    return aksi()
+           ^^^^^^
+  File "D:\Tugas\Pemrograman Desktop\penggajian\app.py", line 59, in proses
+    r = self.gaji_repo.ringkasan(periode)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Tugas\Pemrograman Desktop\penggajian\repository.py", line 77, in ringkasan
+    cur.execute("SELECT COUNT(*) AS total FROM karyawan WHERE aktif=1")
+  File "D:\Tugas\Pemrograman Desktop\penggajian\venv\Lib\site-packages\mysql\connector\cursor.py", line 416, in execute
+    self._connection.cmd_query(
+  File "D:\Tugas\Pemrograman Desktop\penggajian\venv\Lib\site-packages\mysql\connector\opentelemetry\context_propagation.py", line 97, in wrapper
+    return method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Tugas\Pemrograman Desktop\penggajian\venv\Lib\site-packages\mysql\connector\_decorating.py", line 89, in handle_cnx_method
+    raise err
+  File "D:\Tugas\Pemrograman Desktop\penggajian\venv\Lib\site-packages\mysql\connector\_decorating.py", line 85, in handle_cnx_method
+    return cnx_method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Tugas\Pemrograman Desktop\penggajian\venv\Lib\site-packages\mysql\connector\connection.py", line 984, in cmd_query
+    result = self._handle_result(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Tugas\Pemrograman Desktop\penggajian\venv\Lib\site-packages\mysql\connector\_decorating.py", line 89, in handle_cnx_method
+    raise err
+  File "D:\Tugas\Pemrograman Desktop\penggajian\venv\Lib\site-packages\mysql\connector\_decorating.py", line 85, in handle_cnx_method
+    return cnx_method(cnx, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Tugas\Pemrograman Desktop\penggajian\venv\Lib\site-packages\mysql\connector\connection.py", line 745, in _handle_result
+    raise get_exception(packet)
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'db_penggajian_modul5.karyawan' doesn't exist
